@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import router from './routes'
+import 'normalize.css'
+// import 'ant-design-vue/dist/reset.css'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.use(router)
+router.isReady().then(() => app.mount('#app'))
