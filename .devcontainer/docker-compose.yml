@@ -1,53 +1,58 @@
-version: '3.8'
+version: "3.8"
 networks:
     pg_net:
         driver: bridge
         ipam:
             driver: default
             config:
-                - subnet: '192.168.100.0/24'
-                  gateway: '192.168.100.1'
+                - subnet: "192.168.100.0/24"
+                  gateway: "192.168.100.1"
 
 services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
-
+            dockerfile: ./Dockerfile.app
+        # user: node
         volumes:
             - ../..:/app:cached
 
         # Overrides default command so things don't shut down after the process ends.
         command: sleep infinity
         ports:
-            - '8550:3000'
-            - '8551:3001'
+            - "8550:3000"
+            - "8551:3001"
+            - "8522:22"
 
         # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
         # network_mode: service:postgres
-        networks: 
+        networks:
             pg_net:
                 ipv4_address: 192.168.100.11
 
         # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
         # (Adding the "ports" property to this file will not forward from a Codespace.)
     api:
-        image: postgres:latest
+        build:
+            context: .
+            dockerfile: ./Dockerfile.api
+        # image: postgres:latest
+        # user: postgres
         restart: unless-stopped
         volumes:
-            - postgres-data:/var/lib/postgresql/data
+            - ../api/data:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: postgres
             POSTGRES_USER: postgres
             POSTGRES_DB: postgres
-        networks: 
+        networks:
             pg_net:
                 ipv4_address: 192.168.100.10
         ports:
-            - '8552:5432'
+            - "8650:5432"
+            - "8622:22"
 
         # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
         # (Adding the "ports" property to this file will not forward from a Codespace.)
-
-volumes:
-    postgres-data:
+# volumes:
+#     postgres-data:

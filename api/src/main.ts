@@ -7,8 +7,8 @@ import { AssembleInterceptor } from './common/assemble.interceptor'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-    initDoc(app)
     app.enableVersioning({ defaultVersion: '1', type: VersioningType.URI })
+    initDoc(app)
     // app.setGlobalPrefix('/api')
     app.useGlobalFilters(new CommExceptionFilter())
     app.useGlobalInterceptors(new AssembleInterceptor())
