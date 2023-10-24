@@ -1,11 +1,29 @@
-// export class User {}
+import { CommEntity } from 'src/common/entity/comm.entity'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('user')
-export class User {
-    @PrimaryGeneratedColumn()
-    uid!: number
+export class User extends CommEntity {
+    @PrimaryGeneratedColumn({ comment: '用户UID' })
+    uid: number
 
-    @Column()
-    uname!: string
+    @Column({ comment: '用户码' })
+    uname: string
+
+    @Column({ comment: '用户名' })
+    uname_cn: string
+
+    @Column({ comment: '密码' })
+    password: string
+
+    @Column({ comment: '邮箱', nullable: true })
+    email: string | null
+
+    @Column({ comment: '手机号', length: 20 })
+    mobile: string
+
+    @Column({ comment: '电话', length: 20, nullable: true })
+    tel: string | null
+
+    @Column({ comment: '状态', length: 1 })
+    status: string
 }
