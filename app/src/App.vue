@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
-
 <template>
-    <router-view />
+    <Layout></Layout>
 </template>
+
+<script setup lang="ts">
+import Layout from '@/layout/index.vue'
+</script>

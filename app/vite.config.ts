@@ -4,7 +4,6 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path'
-
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/',
@@ -13,7 +12,7 @@ export default defineConfig({
         host: '0.0.0.0',
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:8551',
+                target: 'http://127.0.0.1:3001',
                 changeOrigin: true,
                 rewrite: path => path.replace('/api', '/v1')
             }
@@ -21,7 +20,10 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': resolve(__dirname, './src')
+            '@': (function () {
+                console.log(__dirname)
+                return resolve(__dirname, './src')
+            })()
         }
     },
     plugins: [

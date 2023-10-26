@@ -1,0 +1,13 @@
+$namespace: 'lro' !default;
+$block-sel: '-' !default;
+$elem-sel: '__' !default;
+$mod-sel: '--' !default;
+
+
+
+@mixin block($block) {
+    $B: #{$namespace + $block-sel + $block};
+    .#{$B} {
+        @content;
+    }
+}
