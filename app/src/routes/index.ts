@@ -21,7 +21,7 @@ const router = createRouter({
     routes
 })
 NProgress.configure({ showSpinner: false })
-router.beforeEach((to, _from, next) => {
+router.beforeEach((_, _from, next) => {
     NProgress.start()
     setTimeout(() => next(), 500)
 })

@@ -1,6 +1,7 @@
 <template>
   <div class="lro-content">
-    <div v-for="item in  100">{{item}}</div>
+    <!-- <div v-for="item in  100">{{item}}</div> -->
+    <router-view />
   </div>
 </template>
 
