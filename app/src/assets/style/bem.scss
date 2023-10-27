@@ -3,11 +3,59 @@ $block-sel: '-' !default;
 $elem-sel: '__' !default;
 $mod-sel: '--' !default;
 
-
-
+/**
+ * @description: 拼接bem class
+ * @example:
+ *      @include block(test) { => .lro-test {
+ *         正文
+ *         color: pink;              color: pink;
+ *      }                         }
+ * @return {*}
+ */
 @mixin block($block) {
     $B: #{$namespace + $block-sel + $block};
     .#{$B} {
+        // 正文占位符
         @content;
     }
+}
+
+/**
+ * @description: 获取父级后拼接，跳出嵌套，不接父级作为前缀
+ * @example:
+ *      @include block(test) {      => .lro-test__inner {
+ *          @include elem(inner) {
+ *              color: yellow;              color: yellow;
+ *          }                           }
+ *      }
+ *
+ * @return {*}
+ */
+@mixin elem($elem) {
+    // 获取父级元素
+    $parent: &;
+    // 跳出嵌套
+    @at-root {
+        $E: #{$parent + $elem-sel + $elem};
+        .#{$E} {
+            @content;
+        }
+    }
+}
+
+@mixin mod($mod) {
+    // 获取父级元素
+    $parent: &;
+    // 跳出嵌套
+    @at-root {
+        $M: #{$parent + $mod-sel + $mod};
+        .#{$M} {
+            @content;
+        }
+    }
+}
+
+@mixin bfc {
+    height: 100%;
+    overflow: hidden;
 }

@@ -47,5 +47,12 @@ export default defineConfig({
                 })
             ]
         })
-    ]
+    ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@import "@/assets/style/bem.scss";`
+            }
+        }
+    }
 })

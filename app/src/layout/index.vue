@@ -1,9 +1,7 @@
-<style scoped lang="scss"></style>
-
 <template>
-    <div>
+    <div class="lro-app">
         <Aside />
-        <div>
+        <div class="lro-main">
             <Header />
             <Content />
         </div>
@@ -15,3 +13,15 @@ import Aside from './components/Aside/index.vue'
 import Header from './components/Header/index.vue'
 import Content from './components/Content/index.vue'
 </script>
+
+<style scoped lang="scss">
+@include block(app) {
+    @include bfc;
+    display: flex;
+}
+@include block(main) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+</style>
