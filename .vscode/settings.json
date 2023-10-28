@@ -1,0 +1,38 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": false,
+        "eslint.autoFixOnSave": true
+    },
+    "workbench.colorTheme": "★★★★★ DARCULA ★★",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.smoothScrolling": true,
+    "editor.fontLigatures": true,
+    "eslint.format.enable": true,
+    "colorize.languages": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "none",
+    "prettier.useTabs": true,
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    "prettier.endOfLine": "auto"
+}

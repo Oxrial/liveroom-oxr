@@ -14,7 +14,7 @@
     // This can be used to network with other containers or with the host.
     // "forwardPorts": ["8550:3000","8551:3001", "8552:5432"],
     // Use 'postCreateCommand' to run commands after the container is created.
-    // "postCreateCommand": "npm config set registry https://registry.npmmirror.com && npm -g install pnpm && pnpm run install",
+    // "postCreateCommand": "npm config set registry https://registry.npmmirror.com && npm -g install pnpm && pnpm config set ELECTRON_MIRROR https://npmmirror.com/mirrors/electron/ && pnpm run install",
     "customizations": {
         "vscode": {
             "extensions": [

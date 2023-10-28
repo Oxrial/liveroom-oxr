@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "sldobri.darcula-5-stars",
+        "emmanuelbeziat.vscode-great-icons",
+        "cweijan.vscode-database-client2",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "MisterJ.vue-volar-extention-pack",
+        "kamikillerto.vscode-colorize",
+        "oderwat.indent-rainbow",
+        "editorconfig.editorconfig",
+        "isudox.vscode-jetbrains-keybindings"
+    ]
+}

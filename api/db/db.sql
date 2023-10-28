@@ -128,16 +128,16 @@ ALTER TABLE public."user" ALTER COLUMN uid ADD GENERATED ALWAYS AS IDENTITY (
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."user" (uid, password, email, uname, uname_cn, create_at, update_at, tel, status, mobile) FROM stdin;
-1003	aya	aya@qq.com	aya	Aya	2023-10-24 02:51:49.688275	2023-10-24 02:51:49.688275	\N	1	13212345678
-\.
+-- COPY public."user" (uid, password, email, uname, uname_cn, create_at, update_at, tel, status, mobile) FROM stdin;
+-- 1003	aya	aya@qq.com	aya	Aya	2023-10-24 02:51:49.688275	2023-10-24 02:51:49.688275	\N	1	13212345678
+-- \.
 
 
 --
 -- Name: user_uid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_uid_seq', 1003, true);
+-- SELECT pg_catalog.setval('public.user_uid_seq', 1003, true);
 
 
 --
