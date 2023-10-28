@@ -1,4 +1,4 @@
-import { CreateDateColumn, UpdateDateColumn, ValueTransformer } from 'typeorm'
+import { Column, CreateDateColumn, UpdateDateColumn, ValueTransformer } from 'typeorm'
 import * as dayjs from 'dayjs'
 const dateTransFormer = {
     to: v => v,
@@ -20,4 +20,7 @@ export abstract class CommEntity {
         transformer: dateTransFormer
     })
     updateAt: Date
+
+    @Column({ comment: '状态', length: 1 })
+    status: string
 }

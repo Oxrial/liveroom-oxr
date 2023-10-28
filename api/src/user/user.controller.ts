@@ -9,7 +9,6 @@ export class UserController {
 
     @Post()
     create(@Body() createUserDto: CreateUserDto) {
-        console.log(createUserDto)
         return this.userService.create(createUserDto)
     }
 
@@ -19,8 +18,8 @@ export class UserController {
     }
 
     @Get('findByUname')
-    findOneByUname(@Query('uname') uname: string) {
-        return this.userService.findOneByUname(uname)
+    findOneByUname(@Query('uname') name: string) {
+        return this.userService.findOneByUname(name)
     }
     @Get(':uid')
     findOne(@Param('uid') uid: string) {

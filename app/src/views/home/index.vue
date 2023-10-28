@@ -1,13 +1,15 @@
 <template>
     <div>HOME</div>
+    <div>{{ u }}</div>
 </template>
 
 <script setup lang="ts">
 import api from '@/api/index'
 import { get } from '@/api/http'
+const u = ref()
 onMounted(() => {
-    get(api.getUserByUID(1004 + '')).then(res => {
-        console.log(res)
+    get(api.getUserByUID(1001 + '')).then(res => {
+        u.value = res
     })
 })
 </script>

@@ -28,8 +28,8 @@ CREATE TABLE public."user" (
     uid integer NOT NULL,
     password character varying NOT NULL,
     email character varying,
-    uname character varying NOT NULL,
-    uname_cn character varying NOT NULL,
+    name character varying NOT NULL,
+    name_cn character varying NOT NULL,
     create_at timestamp without time zone DEFAULT now() NOT NULL,
     update_at timestamp without time zone DEFAULT now() NOT NULL,
     tel character varying(20),
@@ -65,14 +65,14 @@ COMMENT ON COLUMN public."user".email IS '邮箱';
 -- Name: COLUMN "user".uname; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN public."user".uname IS '用户码';
+COMMENT ON COLUMN public."user".name IS '用户码';
 
 
 --
 -- Name: COLUMN "user".uname_cn; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN public."user".uname_cn IS '用户名';
+COMMENT ON COLUMN public."user".name_cn IS '用户名';
 
 
 --

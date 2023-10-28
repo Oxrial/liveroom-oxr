@@ -3,22 +3,22 @@ import { MaxLength } from 'class-validator'
 
 export class CreateUserDto {
     @ApiProperty()
-    uname: string
+    name: string
 
     @ApiProperty()
-    uname_cn: string
+    name_cn: string
 
     @ApiProperty()
     password: string
 
     @ApiProperty()
-    email: string
+    email?: string
 
     @ApiProperty()
     mobile: string
 
     @ApiProperty()
-    tel: string
+    tel?: string
 
     @ApiProperty()
     @MaxLength(1)

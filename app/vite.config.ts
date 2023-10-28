@@ -41,19 +41,17 @@ export default defineConfig({
         port: 3000,
         // host: '0.0.0.0',
         proxy: {
-            '/': {
-                target: 'http://127.0.0.1:3001/api/v1',
+            // 代理拦截匹配前缀
+            '/api': {
+                target: 'http://127.0.0.1:3001',
                 changeOrigin: true,
-                rewrite: path => path.replace('/', '')
+                rewrite: path => path.replace(/^\/api/, '/api/v1')
             }
         }
     },
     resolve: {
         alias: {
-            '@': (function () {
-                console.log(__dirname)
-                return resolve(__dirname, './src')
-            })()
+            '@': resolve(__dirname, './src')
         }
     },
     plugins: [
