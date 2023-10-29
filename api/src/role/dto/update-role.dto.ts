@@ -1,6 +1,7 @@
-import { PartialType } from '@nestjs/swagger'
+import { ApiProperty, PartialType } from '@nestjs/swagger'
 import { CreateRoleDto } from './create-role.dto'
 
 export class UpdateRoleDto extends PartialType(CreateRoleDto) {
-    id: number
+    @ApiProperty()
+    rid: number
 }

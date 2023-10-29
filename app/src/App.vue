@@ -1,14 +1,16 @@
 <template>
     <Layout />
+    <Empty />
 </template>
 
 <script setup lang="ts">
 import Layout from '@/layout/index.vue'
+import Empty from '@/layout/empty.vue'
 </script>
 
 <style lang="scss">
-
-html,body{
+html,
+body {
     @include bfc;
 }
 #app {

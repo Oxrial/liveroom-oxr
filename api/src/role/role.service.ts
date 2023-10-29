@@ -16,17 +16,17 @@ export class RoleService {
         return await this.repo.find()
     }
 
-    async findOne(id: number) {
-        return await this.repo.findOne({ where: { id } })
+    async findOne(rid: number) {
+        return await this.repo.findOne({ where: { rid } })
     }
 
-    async update(id: number, updateRoleDto: UpdateRoleDto) {
-        const role = await this.findOne(id)
+    async update(rid: number, updateRoleDto: UpdateRoleDto) {
+        const role = await this.findOne(rid)
         Object.assign(role, updateRoleDto)
         return this.repo.save(role)
     }
 
-    remove(id: number) {
-        return this.repo.delete(id)
+    remove(rid: number) {
+        return this.repo.delete(rid)
     }
 }

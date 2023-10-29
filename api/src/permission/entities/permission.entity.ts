@@ -3,15 +3,15 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('permission')
 export class Permission extends CommEntity {
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn({ name: 'id', comment: '权限ID' })
+    pid: number
 
-    @Column()
-    name: string
+    @Column({ name: 'name', comment: '权限名称' })
+    pname: string
 
-    @Column()
+    @Column({ nullable: true })
     description: string
 
-    @Column()
+    @Column({ name: 'type', comment: '权限类型' })
     permissionType: string
 }

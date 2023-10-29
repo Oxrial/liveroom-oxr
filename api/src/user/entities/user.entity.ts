@@ -1,15 +1,16 @@
 import { CommEntity } from 'src/common/entity/comm.entity'
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { UserRole } from 'src/user-role/entities/user-role.entity'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm'
 @Entity('user')
 export class User extends CommEntity {
-    @PrimaryGeneratedColumn({ comment: '用户UID' })
+    @PrimaryGeneratedColumn({ name: 'id', comment: '用户UID' })
     uid: number
 
-    @Column({ comment: '用户码' })
-    name: string
+    @Column({ name: 'name', comment: '用户码' })
+    uname: string
 
-    @Column({ comment: '用户名' })
-    name_cn: string
+    @Column({ name: 'name_cn', comment: '用户名' })
+    unameCN: string
 
     @Column({ comment: '密码' })
     password: string
@@ -22,4 +23,7 @@ export class User extends CommEntity {
 
     @Column({ comment: '电话', length: 20, nullable: true })
     tel: string | null
+
+    @OneToMany(() => UserRole, userRole => userRole.user)
+    userRole: UserRole
 }

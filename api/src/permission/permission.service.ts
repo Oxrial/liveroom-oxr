@@ -16,17 +16,17 @@ export class PermissionService {
         return await this.repo.find()
     }
 
-    async findOne(id: number) {
-        return await this.repo.findOne({ where: { id } })
+    async findOne(pid: number) {
+        return await this.repo.findOne({ where: { pid } })
     }
 
-    async update(id: number, updatePermissionDto: UpdatePermissionDto) {
-        const permission = await this.findOne(id)
+    async update(pid: number, updatePermissionDto: UpdatePermissionDto) {
+        const permission = await this.findOne(pid)
         Object.assign(permission, updatePermissionDto)
         return this.repo.save(permission)
     }
 
-    remove(id: number) {
-        return this.repo.delete(id)
+    remove(pid: number) {
+        return this.repo.delete(pid)
     }
 }

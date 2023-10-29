@@ -1,8 +1,9 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
-import NProgress from 'nprogress'
+
 import 'nprogress/nprogress.css'
 
-export const routes: RouteRecordRaw[] = [
+// static
+export const constantRoutes: RouteRecordRaw[] = [
     {
         path: '/',
         redirect: '/home'
@@ -18,13 +19,7 @@ export const routes: RouteRecordRaw[] = [
 ]
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes
-})
-NProgress.configure({ showSpinner: false })
-router.beforeEach((_, _from, next) => {
-    NProgress.start()
-    setTimeout(() => next(), 500)
+    routes: constantRoutes
 })
 
-router.afterEach(() => NProgress.done())
 export default router
