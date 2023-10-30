@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Headers } from '@nestjs/common'
 import { UserService } from './user.service'
 import { RegisterUserDto } from './dto/register-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -14,14 +14,14 @@ export class UserController {
         // 手机号验证码
     }
 
+    @Post('register')
+    register(@Body() registerUserDto: RegisterUserDto) {
+        return this.userService.register(registerUserDto)
+    }
+
     @Post('login')
     login(@Body() loginUserDto: LoginUserDto) {
         return this.userService.login(loginUserDto)
-    }
-
-    @Post()
-    register(@Body() registerUserDto: RegisterUserDto) {
-        return this.userService.register(registerUserDto)
     }
 
     @Get()

@@ -30,7 +30,6 @@ export class UserService {
     }
     // 登录
     async login(user: LoginUserDto) {
-        console.log('🚀 ~ file: user.service.ts:31 ~ UserService ~ login ~ user>>> :', user)
         const oldUser = await this.repo.findOne({ where: { uname: user.uname } })
         if (!oldUser) {
             throw new HttpException('用户名不存在', 200)

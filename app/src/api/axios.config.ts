@@ -4,10 +4,9 @@ import Axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } 
 // import Cookies from 'js-cookie'
 
 export const CONTENT_TYPE = {
-    CONTENT_TYPE: 'Content-Type',
-    APPLICATION_JSON: 'application/json; charset=utf-8',
+    APPLICATION_JSON: 'application/json',
     FORM_URLENCODED: 'application/x-www-form-urlencoded',
-    TEXT_PLAIN: 'text/plain; charset=utf-8',
+    TEXT_PLAIN: 'text/plain',
     MULTIPART_FORM_DATA: 'multipart/form-data',
     APPLICATION_OCTET_STREAM: 'application/octet-stream'
 }
@@ -20,12 +19,16 @@ const service = Axios.create({
         'Content-Type': CONTENT_TYPE.APPLICATION_JSON
     }
 })
+// service.defaults.headers.common['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
+// console.log('🚀 ~ file: axios.config.ts:20 ~ service:', service.defaults)
+
 type WhiteList = Array<string | RegExp>
 const WHITE_LIST_STRING: WhiteList = ['/login']
 // const WHITE_LIST_REGEXP: WhiteList = [/^(?=.*\/user)\/user\/.*$/]
 service.interceptors.request.use(
     async (req: AxiosRequestConfig) => {
-        if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${'token'}`
+        // req.headers!['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
+        // if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${'token'}`
         return req as InternalAxiosRequestConfig<any>
     },
     err => {

@@ -1,9 +1,7 @@
 <template>
-    <Content />
+    <router-view />
 </template>
 
-<script setup lang="ts">
-import Content from './components/Content/index.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss"></style>
