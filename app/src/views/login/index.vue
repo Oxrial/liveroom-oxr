@@ -3,9 +3,16 @@
 </template>
 
 <script setup lang="ts">
+import api from '@/api'
+import {  post } from '@/api/http'
+
 const login = () => {
-    const res = fetch('/api').then(res => res.json())
-    console.log(res)
+    post(api.login, {
+        uname: 'aya',
+        password: 'aya'
+    }).then(res => {
+        console.log('🚀 ~ file: index.vue:13 ~ login ~ res>>> :', res)
+    })
 }
 </script>
 

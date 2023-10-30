@@ -1,6 +1,6 @@
 <template>
-    <Layout />
-    <Empty />
+    <Empty v-if="$route.meta.layout === '--NONE--'" />
+    <Layout v-else />
 </template>
 
 <script setup lang="ts">

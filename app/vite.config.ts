@@ -73,7 +73,8 @@ export default defineConfig({
                     importStyle: false,
                     resolveIcons: true
                 })
-            ]
+            ],
+            dts: 'types/components.d.ts'
         }),
         // electronDevPlugin(buildElectron, buildProcess),
         electronBuildPlugin(buildElectron)

@@ -6,7 +6,8 @@ import 'nprogress/nprogress.css'
 export const constantRoutes: RouteRecordRaw[] = [
     {
         path: '/',
-        redirect: '/home'
+        redirect: '/home',
+        meta: { hidden: true }
     },
     {
         path: '/home',
@@ -14,7 +15,10 @@ export const constantRoutes: RouteRecordRaw[] = [
     },
     {
         path: '/login',
-        component: () => import('@/views/login/index.vue')
+        component: () => import('@/views/login/index.vue'),
+        meta: {
+            layout: '--NONE--'
+        }
     }
 ]
 const router = createRouter({

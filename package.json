@@ -1,17 +1,14 @@
 {
-  "dependencies": {
-    "@nestjs/mapped-types": "*"
-  },
-	"name": "liveroom",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"serve": "pnpm --prefix api run dev",
-		"dev": "pnpm --prefix app run dev",
-		"install": "pnpm --prefix api install && pnpm --prefix app install"
-	},
-	"keywords": [],
-	"author": "Oxrial",
-	"license": "MIT"
+    "name": "liveroom",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "serve": "pnpm --prefix api run dev",
+        "dev": "pnpm --prefix app run dev",
+        "install": "pnpm --prefix api install && pnpm --prefix app install"
+    },
+    "keywords": [],
+    "author": "Oxrial",
+    "license": "MIT"
 }

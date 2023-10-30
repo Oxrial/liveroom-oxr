@@ -10,6 +10,7 @@ export class CreateUserDto {
     unameCN: string
 
     @ApiProperty()
+    @IsNotEmpty()
     password: string
 
     @ApiProperty({ required: false })
@@ -24,4 +25,14 @@ export class CreateUserDto {
     @ApiProperty()
     @MaxLength(1)
     status: string
+
+    constructor(uname?: string, unameCN?: string, password?: string, email?: string, mobile?: string, tel?: string, status?: string) {
+        this.uname = uname
+        this.unameCN = unameCN
+        this.password = password
+        this.email = email
+        this.mobile = mobile
+        this.tel = tel
+        this.status = status
+    }
 }

@@ -7,6 +7,6 @@ function http(url: string, data: any, method: string, headers: any, beforeFunc?:
 export function get(url: string, data = {}, beforeFunc?: () => void) {
     return http(url, data, 'GET', null, beforeFunc)
 }
-export function post(url: string, data: any, headers: any, beforeFunc: () => void) {
+export function post(url: string, data: any, headers?: any, beforeFunc?: () => void) {
     return http(url, data, 'POST', headers, beforeFunc)
 }

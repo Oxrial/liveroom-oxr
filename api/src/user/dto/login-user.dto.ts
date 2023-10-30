@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-export class LoginUser {
+export class LoginUserDto {
     @ApiProperty()
     uname: string
 

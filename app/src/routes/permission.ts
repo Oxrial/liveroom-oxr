@@ -1,9 +1,14 @@
 import NProgress from 'nprogress'
 NProgress.configure({ showSpinner: false })
 import router from './index'
-router.beforeEach((_, _from, next) => {
+import settings from '@/layout/settings'
+const resolveTitle = (ptitle: string) => (ptitle ? `${ptitle} - ${settings.title}` : `${settings.title}`)
+
+router.beforeEach((to, _from, next) => {
     NProgress.start()
-    setTimeout(() => next(), 500)
+
+    document.title = resolveTitle((to.meta.title as string) || '')
+    next()
 })
 
 router.afterEach(() => NProgress.done())
