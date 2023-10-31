@@ -20,9 +20,7 @@
                     </a-form-item>
                 </template>
                 <div class="operation-conent">
-                    <a-checkbox v-model:checked="remember" @change="checkboxChangeEvent => userStore.setRemember(checkboxChangeEvent)">
-                        Remember me
-                    </a-checkbox>
+                    <a-checkbox v-model:checked="remember" @change="(e: CheckboxChangeEvent) => userStore.setRemember(e)"> Remember me </a-checkbox>
                     <a-button type="link" @click="forgetPWD">忘记密码</a-button>
                 </div>
                 <div style="height: 3em" />
@@ -43,12 +41,13 @@
 import { useUserStore } from '@/store'
 import type { LoginUser } from '@/store'
 import { Input, InputPassword } from 'ant-design-vue'
-import type { FormInstance } from 'ant-design-vue';
+import type { FormInstance } from 'ant-design-vue'
 import { checkOk } from '@/api'
 import type { Result } from '@/api'
 import _v from 'validator'
 import { post } from '@/api/http'
 import api from '@/api'
+import { CheckboxChangeEvent } from 'ant-design-vue/es/_util/EventInterface'
 
 const loginRef = ref<FormInstance>()
 const userStore = useUserStore()
@@ -59,8 +58,12 @@ const loginData: LoginUser = reactive({
 })
 const remember = ref(userStore.remember)
 
-const login = () => 
-    userStore.login(loginData as LoginUser)
+const router = useRouter()
+const route = useRoute()
+const login = () =>
+    userStore.login(loginData as LoginUser).then(res => {
+        checkOk(res as Result) && router.replace({ path: (route.query.redirect as string | null) || '/' })
+    })
 
 const loginForm = [
     {
@@ -94,7 +97,7 @@ const loginForm = [
 const forgetPWD = () => {}
 const register = () => {
     post(api.register, loginData).then(res => {
-        if(!checkOk(res as Result)) return
+        if (!checkOk(res as Result)) return
         const uname = loginData.uname
         loginRef.value?.resetFields()
         loginData.uname = uname

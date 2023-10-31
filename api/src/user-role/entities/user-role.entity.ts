@@ -8,6 +8,14 @@ export class UserRole extends CommEntity {
     @PrimaryGeneratedColumn()
     id: number
 
+    // 声明外键字段
+    @Column({ comment: '用户关联UID' })
+    uid: number
+
+    @Column({ comment: '角色关联RID' })
+    rid: number
+
+    // 使用ManyToOne将上述列与外键Join指定name
     @ManyToOne(() => Role, role => role.userRole)
     @JoinColumn({ name: 'rid' })
     role: Role

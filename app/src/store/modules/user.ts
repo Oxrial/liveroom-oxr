@@ -6,7 +6,6 @@ import { checkOk } from '@/api'
 import type { Result } from '@/api'
 import { setToken } from '@/utils'
 
-const router = useRouter()
 export const useUserStore = defineStore(
     'USER',
     () => {
@@ -20,13 +19,15 @@ export const useUserStore = defineStore(
             remember.value = checked
         }
 
-        const login = (user: LoginUser) =>
-            post(api.login, user).then(res => {
+        const login = (user: LoginUser) => {
+            const promise = post(api.login, user)
+            promise.then(res => {
                 if (!checkOk(res as Result)) return
                 setUser(user)
                 setToken((res as Result).data?.token)
-                router.push('/')
             })
+            return promise
+        }
         return { login, user, remember, setRemember, setUser }
     },
     {

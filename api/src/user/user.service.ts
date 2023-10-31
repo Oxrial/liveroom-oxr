@@ -6,10 +6,15 @@ import { Repository } from 'typeorm'
 import { RegisterUserDto } from './dto/register-user.dto'
 import { CreateUserDto } from './dto/create-user.dto'
 import { LoginUserDto } from './dto/login-user.dto'
+import { UserRole } from 'src/user-role/entities/user-role.entity'
+import { CreateUserRoleDto } from 'src/user-role/dto/create-user-role.dto'
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private readonly repo: Repository<User>) {}
+    constructor(
+        @InjectRepository(User) private readonly repo: Repository<User>,
+        @InjectRepository(UserRole) private readonly urrepo: Repository<UserRole>
+    ) {}
     // 注册
     async register(registerUserDto: RegisterUserDto) {
         // 检查库中是否已经存在该用户
@@ -22,6 +27,8 @@ export class UserService {
         const createUserDto = new CreateUserDto(uname, uname, password, null, mobile, null, '1')
         try {
             await this.repo.save(createUserDto)
+            const newUser = await this.repo.findOne({ where: { uname: createUserDto.uname } })
+            await this.urrepo.save(new CreateUserRoleDto(newUser.uid, 3))
             return 'Register success'
         } catch (error) {
             console.log(error)
@@ -39,7 +46,7 @@ export class UserService {
         }
         // token
         const token = 'AAA'
-        return token
+        return { token }
     }
 
     create(createUserDto: CreateUserDto) {

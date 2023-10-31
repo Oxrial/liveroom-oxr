@@ -21,6 +21,6 @@ export abstract class CommEntity {
     })
     updateAt: Date
 
-    @Column({ comment: '状态', length: 1 })
+    @Column({ comment: '状态', length: 1, default: '1' })
     status: string
 }
