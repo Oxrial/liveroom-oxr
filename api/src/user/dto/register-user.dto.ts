@@ -7,9 +7,8 @@ export class RegisterUserDto {
     uname: string
 
     @ApiProperty()
-    @IsNotEmpty()
     password: string
 
-    @ApiProperty()
+    @ApiProperty({ nullable: true })
     mobile: string
 }

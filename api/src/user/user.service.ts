@@ -19,7 +19,7 @@ export class UserService {
         }
         // encrypt
         const { uname, password, mobile } = registerUserDto
-        const createUserDto = new CreateUserDto(uname, uname, password, mobile, null, null, '1')
+        const createUserDto = new CreateUserDto(uname, uname, password, null, mobile, null, '1')
         try {
             await this.repo.save(createUserDto)
             return 'Register success'

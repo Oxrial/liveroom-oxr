@@ -18,7 +18,7 @@ export class User extends CommEntity {
     @Column({ comment: '邮箱', nullable: true })
     email: string | null
 
-    @Column({ comment: '手机号', length: 20 })
+    @Column({ comment: '手机号', length: 20, nullable: true })
     mobile: string
 
     @Column({ comment: '电话', length: 20, nullable: true })

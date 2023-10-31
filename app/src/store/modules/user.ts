@@ -2,11 +2,15 @@ import { defineStore } from 'pinia'
 import { LoginUser } from '../types/user'
 import { post } from '@/api/http'
 import api from '@/api'
+import { checkOk } from '@/api'
+import type { Result } from '@/api'
+import { setToken } from '@/utils'
 
+const router = useRouter()
 export const useUserStore = defineStore(
     'USER',
     () => {
-        const user = reactive<LoginUser>({ uname: '', password: '' })
+        const user = reactive<LoginUser>({ uname: '', password: '', mobile: '' })
         const remember = ref(false)
         const setUser = ({ uname, password }: LoginUser) => {
             user.uname = uname
@@ -15,14 +19,14 @@ export const useUserStore = defineStore(
         const setRemember = ({ target: { checked } }: any) => {
             remember.value = checked
         }
-        const login = (user: LoginUser) => {
-            return new Promise((resolve, reject) =>
-                post(api.login, user)
-                    .then(res => resolve(res))
-                    .catch(err => reject(err))
-            )
-        }
 
+        const login = (user: LoginUser) =>
+            post(api.login, user).then(res => {
+                if (!checkOk(res as Result)) return
+                setUser(user)
+                setToken((res as Result).data?.token)
+                router.push('/')
+            })
         return { login, user, remember, setRemember, setUser }
     },
     {

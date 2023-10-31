@@ -16,7 +16,7 @@ export class CreateUserDto {
     @ApiProperty({ required: false })
     email?: string
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     mobile: string
 
     @ApiProperty({ required: false })

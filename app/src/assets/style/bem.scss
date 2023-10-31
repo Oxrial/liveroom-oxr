@@ -31,21 +31,27 @@ $mod-sel: '--' !default;
  *
  * @return {*}
  */
-@mixin elem($elem) {
+@mixin elem($elem, $par) {
     // 获取父级元素
-    $parent: &;
+    $parent:  &;
+    @if $par != null {
+        $parent: $namespace + $block-sel + $par;
+    }
     // 跳出嵌套
     @at-root {
-        $E: #{$parent + $elem-sel + $elem};
+        $E: #{ $parent + $elem-sel + $elem};
         .#{$E} {
             @content;
         }
     }
 }
 
-@mixin mod($mod) {
+@mixin mod($mod, $par) {
     // 获取父级元素
     $parent: &;
+    @if $par != null {
+        $parent: $namespace + $block-sel + $par;
+    }
     // 跳出嵌套
     @at-root {
         $M: #{$parent + $mod-sel + $mod};

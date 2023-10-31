@@ -1,6 +1,6 @@
 interface LoginUser {
     uname: string
     password: string
+    mobile: string
 }
-type LoginInfo = { remember: boolean } & LoginUser
-export type { LoginUser, LoginInfo }
+export type { LoginUser }

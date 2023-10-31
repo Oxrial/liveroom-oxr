@@ -5,6 +5,7 @@ interface Res<T> {
 }
 
 const checkData = (data: any) => {
+    console.log('🚀 ~ file: assemble.interceptor.ts:8 ~ checkData ~ data>>> :', data)
     // 检查数据
     if (data) {
         return { data, code: 1, msg: 'success' }
@@ -15,6 +16,7 @@ const checkData = (data: any) => {
 @Injectable()
 export class AssembleInterceptor<T> implements NestInterceptor<T, Res<T>> {
     intercept(ctx: ExecutionContext, next: CallHandler): Observable<Res<T>> {
+        console.log('🚀 ~ file: assemble.interceptor.ts:19 ~ AssembleInterceptor<T> ~ intercept ~ ctx>>> :', ctx)
         return next.handle().pipe(map(data => checkData(data)))
     }
 }

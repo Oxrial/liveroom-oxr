@@ -1,5 +1,6 @@
 import { message } from 'ant-design-vue'
 import Axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { RequestConfig } from './http'
 // import qs from 'qs'
 // import Cookies from 'js-cookie'
 
@@ -36,19 +37,21 @@ service.interceptors.request.use(
         return Promise.reject(err)
     }
 )
-const checkCode = (data: any) => {
+const checkCode = (data: any, msg = true) => {
     if (data.code === 1) {
         // success
-        message.success(data.msg)
+        msg && message.success(data.msg)
     } else if (data.code === 0) {
         // null
         message.info(data.msg)
+    } else if (data.code === 2) {
+        message.error(data.msg)
     }
 }
 service.interceptors.response.use(
     (res: AxiosResponse) => {
         const data = res.data
-        checkCode(data)
+        checkCode(data, (res.config as RequestConfig).msg)
         return data
     },
     err => {
