@@ -14,6 +14,7 @@ $mod-sel: '--' !default;
  */
 @mixin block($block) {
     $B: #{$namespace + $block-sel + $block};
+    @debug 'B ' + $B;
     .#{$B} {
         // 正文占位符
         @content;
@@ -31,22 +32,23 @@ $mod-sel: '--' !default;
  *
  * @return {*}
  */
-@mixin elem($elem, $par) {
+@mixin elem($elem, $par: null) {
     // 获取父级元素
-    $parent:  &;
+    $parent: &;
     @if $par != null {
         $parent: $namespace + $block-sel + $par;
     }
     // 跳出嵌套
     @at-root {
-        $E: #{ $parent + $elem-sel + $elem};
-        .#{$E} {
+        $E: #{$parent + $elem-sel + $elem};
+        @debug 'E ' + $E;
+        #{$E} {
             @content;
         }
     }
 }
 
-@mixin mod($mod, $par) {
+@mixin mod($mod, $par: null) {
     // 获取父级元素
     $parent: &;
     @if $par != null {
@@ -55,7 +57,8 @@ $mod-sel: '--' !default;
     // 跳出嵌套
     @at-root {
         $M: #{$parent + $mod-sel + $mod};
-        .#{$M} {
+        @debug 'M ' + $M;
+        #{$M} {
             @content;
         }
     }

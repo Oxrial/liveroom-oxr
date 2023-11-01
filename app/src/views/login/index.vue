@@ -42,6 +42,7 @@ import { useUserStore } from '@/store'
 import type { LoginUser } from '@/store'
 import { Input, InputPassword } from 'ant-design-vue'
 import type { FormInstance } from 'ant-design-vue'
+import { omit } from 'lodash-es'
 import { checkOk } from '@/api'
 import type { Result } from '@/api'
 import _v from 'validator'
@@ -61,7 +62,7 @@ const remember = ref(userStore.remember)
 const router = useRouter()
 const route = useRoute()
 const login = () =>
-    userStore.login(loginData as LoginUser).then(res => {
+    userStore.login(omit(loginData, 'mobile')).then(res => {
         checkOk(res as Result) && router.replace({ path: (route.query.redirect as string | null) || '/' })
     })
 

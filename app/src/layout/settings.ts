@@ -1,3 +1,4 @@
 export default {
-    title: 'Liveroom-OXR'
+    title: 'Liveroom-OXR',
+    hasLogo: true
 }

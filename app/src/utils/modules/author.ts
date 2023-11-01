@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'LIVEROOM-OXR'
+const TokenKey = '-LIVEROOM-OXR-'
 
 export function getToken() {
     return Cookies.get(TokenKey)

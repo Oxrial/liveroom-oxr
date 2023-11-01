@@ -1,6 +1,8 @@
 import { message } from 'ant-design-vue'
 import Axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { RequestConfig } from './http'
+import { Result } from '@/liveroom-common-oxr/types/result'
+import { plainToClass } from 'class-transformer'
 // import qs from 'qs'
 // import Cookies from 'js-cookie'
 
@@ -50,7 +52,8 @@ const checkCode = (data: any, msg = true) => {
 }
 service.interceptors.response.use(
     (res: AxiosResponse) => {
-        const data = res.data
+        // const data = res.data
+        const data = plainToClass(Result, res.data as Object) as typeof res.data
         checkCode(data, (res.config as RequestConfig).msg)
         return data
     },

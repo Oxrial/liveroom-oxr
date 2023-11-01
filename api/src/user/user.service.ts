@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { LoginUserDto } from './dto/login-user.dto'
 import { UserRole } from 'src/user-role/entities/user-role.entity'
 import { CreateUserRoleDto } from 'src/user-role/dto/create-user-role.dto'
+import { Result } from 'src/liveroom-common-oxr/types/result'
 
 @Injectable()
 export class UserService {
@@ -29,7 +30,7 @@ export class UserService {
             await this.repo.save(createUserDto)
             const newUser = await this.repo.findOne({ where: { uname: createUserDto.uname } })
             await this.urrepo.save(new CreateUserRoleDto(newUser.uid, 3))
-            return 'Register success'
+            return new Result('Register success')
         } catch (error) {
             console.log(error)
             throw new HttpException('注册失败', 200)
@@ -46,7 +47,11 @@ export class UserService {
         }
         // token
         const token = 'AAA'
-        return { token }
+        return new Result({ token }, 'Login success')
+    }
+
+    logout(token) {
+        return new Result('logout')
     }
 
     create(createUserDto: CreateUserDto) {
@@ -61,13 +66,14 @@ export class UserService {
         return await this.repo.findOne({ where: { uname } })
     }
     async findOne(uid: number) {
-        return await this.repo.findOne({ where: { uid } })
+        return new Result(await this.repo.findOne({ where: { uid } }))
     }
 
     async update(uid: number, updateUserDto: UpdateUserDto) {
         const user = await this.findOne(uid)
-        Object.assign(user, updateUserDto)
-        return this.repo.save(user)
+        Object.assign(user.data, updateUserDto)
+        this.repo.save(user.data)
+        return new Result()
     }
 
     remove(uid: number) {

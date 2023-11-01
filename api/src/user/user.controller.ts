@@ -24,6 +24,11 @@ export class UserController {
         return this.userService.login(loginUserDto)
     }
 
+    @Post('logout')
+    logout(@Body() token) {
+        return this.userService.logout(token)
+    }
+
     @Get()
     findAll() {
         return this.userService.findAll()
