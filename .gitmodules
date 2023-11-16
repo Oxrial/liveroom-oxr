@@ -1,0 +1,6 @@
+[submodule "app/src/core"]
+	path = app/src/core
+	url = https://github.com/Oxrial/liveroom-common-oxr.git
+[submodule "api/src/core"]
+	path = api/src/core
+	url = https://github.com/Oxrial/liveroom-common-oxr.git
