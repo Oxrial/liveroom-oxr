@@ -9,6 +9,7 @@ import { LoginUserDto } from './dto/login-user.dto'
 import { UserRole } from 'src/user-role/entities/user-role.entity'
 import { CreateUserRoleDto } from 'src/user-role/dto/create-user-role.dto'
 import { Result } from 'src/liveroom-common-oxr/types/result'
+import { Role } from 'src/role/entities/role.entity'
 
 @Injectable()
 export class UserService {
@@ -38,7 +39,7 @@ export class UserService {
     }
     // 登录
     async login(user: LoginUserDto) {
-        const oldUser = await this.repo.findOne({ where: { uname: user.uname } })
+        const oldUser = await this.repo.findOne({ where: { uname: user.uname, status: '1' } })
         if (!oldUser) {
             throw new HttpException('用户名不存在', 200)
         }
@@ -47,7 +48,7 @@ export class UserService {
         }
         // token
         const token = 'AAA'
-        return new Result({ token }, 'Login success')
+        return new Result({ token, uid: oldUser.uid }, 'Login success')
     }
 
     logout(token) {
@@ -63,7 +64,19 @@ export class UserService {
     }
 
     async findOneByUname(uname: string) {
-        return await this.repo.findOne({ where: { uname } })
+        return await this.repo.findOne({ where: { uname, status: '1' } })
+    }
+    async findRoleByUname(uname: string) {
+        const conn = this.urrepo.manager.connection
+        const user = await this.findOneByUname(uname)
+        const userRole = conn
+            .createQueryBuilder(UserRole, 'userRole')
+            .select('userRole', 'userRole.*')
+            .leftJoinAndSelect('userRole.role', 'role')
+            .where('userRole.uid = :uid', { uid: user.uid })
+            .andWhere('role.status = :status', { status: '1' })
+            .getOne()
+        return userRole
     }
     async findOne(uid: number) {
         return new Result(await this.repo.findOne({ where: { uid } }))

@@ -3,6 +3,7 @@ import Axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } 
 import { RequestConfig } from './http'
 import { Result } from '@/liveroom-common-oxr/types/result'
 import { plainToClass } from 'class-transformer'
+import { useUserStore } from '@/store'
 // import qs from 'qs'
 // import Cookies from 'js-cookie'
 
@@ -30,8 +31,10 @@ const WHITE_LIST_STRING: WhiteList = ['/login']
 // const WHITE_LIST_REGEXP: WhiteList = [/^(?=.*\/user)\/user\/.*$/]
 service.interceptors.request.use(
     async (req: AxiosRequestConfig) => {
-        // req.headers!['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
-        // if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${'token'}`
+        const userStore = useUserStore()
+        console.log('🚀 ~ file: axios.config.ts:33 ~ req:', req.headers)
+        req.headers!['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
+        if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${userStore.getToken()}`
         return req as InternalAxiosRequestConfig<any>
     },
     err => {

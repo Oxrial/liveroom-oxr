@@ -4,3 +4,4 @@ interface LoginUser {
     mobile: string
 }
 export type { LoginUser }
+export type LoginUserInfo = Omit<LoginUser, 'mobile'>

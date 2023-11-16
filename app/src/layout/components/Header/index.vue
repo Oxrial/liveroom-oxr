@@ -1,13 +1,13 @@
 <template>
     <div class="lro-header">
-        <div class="lro-header-left">
-            <Hamburger :is-active="isActive" @toggle="toggleActive" />
+        <div class="lro-header__left">
+            <Hamburger :is-active="settingStore.sideIsActive" @toggle="settingStore.toggleSide" />
         </div>
-        <div class="lro-header-right">
+        <div class="lro-header__right">
             <a-dropdown>
-                <span class="ant-dropdown-link">
+                <span>
                     <!-- <a-avatar size="small" :src="userStore.avatar" /> -->
-                    <span>T</span>
+                    <a-avatar :size="40">{{ userStore.getUser()?.uname.substring(0, 2).toLocaleUpperCase() }}</a-avatar>
                     <span>{{ userStore.getUser()?.uname }}</span>
                 </span>
                 <template #overlay>
@@ -27,10 +27,6 @@ const userStore = useUserStore()
 const settingStore = useSettingStore()
 const router = useRouter()
 const route = useRoute()
-const isActive = ref(false)
-const toggleActive = () => {
-    isActive.value = !isActive.value
-}
 const logout = () => {
     userStore.logout().then(() => {
         settingStore.clearSide()
@@ -47,5 +43,14 @@ const logout = () => {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    @include elem(right) {
+        .ant-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            .ant-avatar {
+                margin-right: 10px;
+            }
+        }
+    }
 }
 </style>

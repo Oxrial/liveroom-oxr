@@ -39,16 +39,16 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/store'
-import type { LoginUser } from '@/store'
+import type { LoginUser, LoginUserInfo } from '@/store'
 import { Input, InputPassword } from 'ant-design-vue'
 import type { FormInstance } from 'ant-design-vue'
-import { omit } from 'lodash-es'
 import { checkOk } from '@/api'
 import type { Result } from '@/api'
 import _v from 'validator'
 import { post } from '@/api/http'
 import api from '@/api'
 import { CheckboxChangeEvent } from 'ant-design-vue/es/_util/EventInterface'
+import { Storage } from '@/utils'
 
 const loginRef = ref<FormInstance>()
 const userStore = useUserStore()
@@ -57,13 +57,29 @@ const loginData: LoginUser = reactive({
     mobile: '',
     password: ''
 })
+const loginSubmit: LoginUserInfo = reactive({ uname: '', password: '' })
 const remember = ref(userStore.remember)
 
+const rememberResolve = () => {
+    const loginForm = Storage.get('USER')?.user
+    if (!loginForm) return
+    loginData.uname = loginForm.uname
+    loginData.password = '-REMEMBER-'
+    resolveData(loginForm)
+}
+onMounted(rememberResolve)
 const router = useRouter()
 const route = useRoute()
+const resolveData = ({ uname, password }: LoginUser) => {
+    loginSubmit.uname = uname
+    loginSubmit.password = password
+}
 const login = () =>
-    userStore.login(omit(loginData, 'mobile')).then(res => {
-        checkOk(res as Result) && router.replace({ path: (route.query.redirect as string | null) || '/' })
+    userStore.login(loginSubmit).then(res => {
+        checkOk(res as Result) &&
+            userStore.loadingUser((res as Result).data.uid).then(ures => {
+                checkOk(ures as Result) && router.replace({ path: (route.query.redirect as string | null) || '/' })
+            })
     })
 
 const loginForm = [
@@ -73,7 +89,10 @@ const loginForm = [
         tag: Input,
         $attrs: { placeholder: '请输入用户名/手机号', style: { 'border-radius': '20px', height: '40px' } },
         $listeners: {
-            change: (e: any) => (loginData.mobile = _v.isMobilePhone(e.target.value, 'zh-CN') ? e.target.value : '')
+            change: (e: any) => {
+                loginData.mobile = _v.isMobilePhone(e.target.value, 'zh-CN') ? e.target.value : ''
+                loginSubmit.uname = e.target.value
+            }
         },
         rules: [{ required: true, message: 'Please input your username!' }]
     },
@@ -89,7 +108,10 @@ const loginForm = [
             onblur: "this.setAttribute('readonly', true);"
         },
         $listeners: {
-            'keyup.enter.native': login
+            'keyup.enter.native': login,
+            change: (e: any) => {
+                loginSubmit.password = e.target.value
+            }
         },
         rules: [{ required: true, message: 'Please input your password!' }]
     }
@@ -110,7 +132,7 @@ const register = () => {
 @include block(login) {
     height: 100vh;
     background-color: #6d6a6a;
-    @include elem(content, login) {
+    @include elem(content) {
         display: flex;
         justify-content: center;
         align-items: center;
