@@ -1,9 +1,11 @@
 import { Column, CreateDateColumn, UpdateDateColumn, ValueTransformer } from 'typeorm'
 import * as dayjs from 'dayjs'
+
 const dateTransFormer = {
     to: v => v,
     from: v => dayjs(new Date(v + '')).format('YYYY-MM-DD HH:mm:ss')
 } as ValueTransformer
+
 export abstract class CommEntity {
     @CreateDateColumn({
         type: 'timestamp',

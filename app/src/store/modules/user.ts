@@ -1,64 +1,66 @@
 import { defineStore } from 'pinia'
 import { LoginUserInfo } from '../types/user'
-import { post, get } from '@/api/http'
-import api from '@/api'
-import { checkOk } from '@/api'
+import { usePost, useGet } from '@/hooks'
+import api, { checkOk } from '@/api'
 import type { Result } from '@/api'
-import { removeToken, setToken, Storage } from '@/utils'
+import { removeToken, setToken as setSessionToken, getToken as getSessionToken, Storage } from '@/utils'
+import { useLocalStorage } from '@vueuse/core'
 const userKey = {
     remember: '-REMEMBER-'
 }
 export const useUserStore = defineStore(
     'USER',
     () => {
-        const user = ref()
-        const remember = ref(false)
-        const token = ref<string>()
-        const getToken = () => token.value
+        const publicKey = ref<string>('')
+        const setPublicKey = (key: string) => (publicKey.value = key)
 
-        const setUser = (u: any) => {
-            user.value = u
-        }
-        const getUser = () => toRaw(user.value)
-        const setRemember = ({ target: { checked } }: any) => {
-            remember.value = checked
-        }
+        const uname = ref<string>('')
+        const setUname = (suname: string) => (uname.value = suname)
+
+        const remember = ref<boolean>(false)
+        const setRemember = (checked: boolean) => (remember.value = checked)
+
+        const token = ref<string>(getSessionToken() || '')
 
         const login = (user: LoginUserInfo) => {
-            const promise = post(api.login, user)
+            const promise = usePost(api.login, user, true)
             promise.then(res => {
-                if (!checkOk(res as Result)) return
-                token.value = (res as Result).data?.token
-                setToken((res as Result).data?.token)
+                if (!checkOk(res)) return
+                setSessionToken((res as Result).data?.token)
+                useLocalStorage('RememberForm', user)
             })
             return promise
         }
         const logout = () => {
-            const promise = post(api.logout, { token: token.value })
-            promise.then(() => {
-                clearStorage()
-            })
+            const promise = useGet(api.logout)
+            promise.then(() => clearStorage())
             return promise
         }
-        const loadingUser = (uid: string) => {
-            const promise = get(api.getUserByUID(uid))
+        const loadingUser = () => {
+            const promise = useGet(api.user)
             promise.then(res => {
-                return checkOk(res as Result) && setUser((res as Result).data)
+                if (!checkOk(res)) return
+                setUname((res as Result).data.uname)
             })
             return promise
         }
         const clearStorage = () => {
             removeToken()
-            token.value = ''
-            user.value = null
+            uname.value = ''
             // const needClearStorage = ['token']
             const isRememberMe = Storage.get(userKey.remember)
             if (isRememberMe) return
             // needClearStorage.forEach(key => Storage.remove(key))
         }
-        return { login, logout, loadingUser, getToken, getUser, remember, setRemember, setUser }
+        return { publicKey, setPublicKey, uname, setUname, remember, setRemember, token, login, logout, loadingUser }
     },
     {
-        persist: true
+        persist: [
+            {
+                key: 'REMEMBER',
+                paths: ['remember'],
+                storage: localStorage
+            }
+        ]
     }
 )

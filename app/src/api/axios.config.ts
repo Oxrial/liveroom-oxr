@@ -1,9 +1,12 @@
-import { message } from 'ant-design-vue'
+import { Modal, message } from 'ant-design-vue'
 import Axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { RequestConfig } from './http'
-import { Result } from '@/liveroom-common-oxr/types/result'
+import { Result } from '@/core/types'
 import { plainToClass } from 'class-transformer'
 import { useUserStore } from '@/store'
+import { getToken } from '@/utils'
+import { createVNode } from 'vue'
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue'
 // import qs from 'qs'
 // import Cookies from 'js-cookie'
 
@@ -24,17 +27,14 @@ const service = Axios.create({
     }
 })
 // service.defaults.headers.common['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
-// console.log('🚀 ~ file: axios.config.ts:20 ~ service:', service.defaults)
 
 type WhiteList = Array<string | RegExp>
 const WHITE_LIST_STRING: WhiteList = ['/login']
 // const WHITE_LIST_REGEXP: WhiteList = [/^(?=.*\/user)\/user\/.*$/]
 service.interceptors.request.use(
     async (req: AxiosRequestConfig) => {
-        const userStore = useUserStore()
-        console.log('🚀 ~ file: axios.config.ts:33 ~ req:', req.headers)
         req.headers!['Content-Type'] = CONTENT_TYPE.APPLICATION_JSON
-        if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${userStore.getToken()}`
+        if (!WHITE_LIST_STRING.includes(req.url + '')) req.headers!['Authorization'] = `Bearer ${getToken()}`
         return req as InternalAxiosRequestConfig<any>
     },
     err => {
@@ -42,7 +42,7 @@ service.interceptors.request.use(
         return Promise.reject(err)
     }
 )
-const checkCode = (data: any, msg = true) => {
+const checkCode = (data: any, msg = false) => {
     if (data.code === 1) {
         // success
         msg && message.success(data.msg)
@@ -62,6 +62,17 @@ service.interceptors.response.use(
     },
     err => {
         if (err.response?.status === 401) {
+            Modal.confirm({
+                title: 'Confirm',
+                icon: createVNode(ExclamationCircleOutlined),
+                content: 'TOKEN 失效，请重新登录。',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: () => {
+                    const userStore = useUserStore()
+                    userStore.logout().then(() => location.reload())
+                }
+            })
         } else {
             message.error(err.msg, 5 * 1000)
         }

@@ -1,6 +1,6 @@
-import { CommEntity } from 'src/common/entity/comm.entity'
-import { Role } from 'src/role/entities/role.entity'
-import { User } from 'src/user/entities/user.entity'
+import { CommEntity } from '@/common/entity/comm.entity'
+import { Role } from '@/role/entities/role.entity'
+import { User } from '@/user/entities/user.entity'
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('user_role')

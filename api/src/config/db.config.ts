@@ -1,5 +1,6 @@
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm'
+import * as path from 'path'
 const K = {
     H: 'POSTGRES_HOST',
     P: 'POSTGRES_PORT',
@@ -27,7 +28,7 @@ export const dbConfig = {
             username: __(K.UN),
             password: __(K.PW),
             database: __(K.DB),
-            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            entities: [path.resolve(__dirname, '..') + '/**/*.entity{.ts,.js}'],
             logging: true,
             retryDelay: 500,
             retryAttempts: 3,

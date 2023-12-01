@@ -5,11 +5,9 @@ import { User } from './entities/user.entity'
 import { Repository } from 'typeorm'
 import { RegisterUserDto } from './dto/register-user.dto'
 import { CreateUserDto } from './dto/create-user.dto'
-import { LoginUserDto } from './dto/login-user.dto'
-import { UserRole } from 'src/user-role/entities/user-role.entity'
-import { CreateUserRoleDto } from 'src/user-role/dto/create-user-role.dto'
-import { Result } from 'src/liveroom-common-oxr/types/result'
-import { Role } from 'src/role/entities/role.entity'
+import { UserRole } from '@/user-role/entities/user-role.entity'
+import { CreateUserRoleDto } from '@/user-role/dto/create-user-role.dto'
+import { Result } from '@/core/types'
 
 @Injectable()
 export class UserService {
@@ -24,7 +22,7 @@ export class UserService {
         if (oldUser) {
             throw new HttpException('用户名已存在', 200)
         }
-        // encrypt
+        // encrypted
         const { uname, password, mobile } = registerUserDto
         const createUserDto = new CreateUserDto(uname, uname, password, null, mobile, null, '1')
         try {
@@ -37,21 +35,8 @@ export class UserService {
             throw new HttpException('注册失败', 200)
         }
     }
-    // 登录
-    async login(user: LoginUserDto) {
-        const oldUser = await this.repo.findOne({ where: { uname: user.uname, status: '1' } })
-        if (!oldUser) {
-            throw new HttpException('用户名不存在', 200)
-        }
-        if (!(user.password === oldUser.password)) {
-            throw new HttpException('密码错误', 200)
-        }
-        // token
-        const token = 'AAA'
-        return new Result({ token, uid: oldUser.uid }, 'Login success')
-    }
 
-    logout(token) {
+    logout() {
         return new Result('logout')
     }
 

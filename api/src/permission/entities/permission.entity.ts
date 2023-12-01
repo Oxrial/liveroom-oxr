@@ -1,4 +1,4 @@
-import { CommEntity } from 'src/common/entity/comm.entity'
+import { CommEntity } from '@/common/entity/comm.entity'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('permission')

@@ -4,7 +4,7 @@ import { UpdatePermissionDto } from './dto/update-permission.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Permission } from './entities/permission.entity'
 import { Repository } from 'typeorm'
-import { Result } from 'src/liveroom-common-oxr/types/result'
+import { Result } from '@/core/types'
 
 @Injectable()
 export class PermissionService {

@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-
 const Cookie = {
     set(key: string, value: any) {
         Cookies.set(key, JSON.stringify(value))

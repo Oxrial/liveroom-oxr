@@ -7,8 +7,8 @@
             <a-dropdown>
                 <span>
                     <!-- <a-avatar size="small" :src="userStore.avatar" /> -->
-                    <a-avatar :size="40">{{ userStore.getUser()?.uname.substring(0, 2).toLocaleUpperCase() }}</a-avatar>
-                    <span>{{ userStore.getUser()?.uname }}</span>
+                    <a-avatar :size="40">{{ userStore.uname?.substring(0, 2).toLocaleUpperCase() }}</a-avatar>
+                    <span> {{ userStore.uname }}</span>
                 </span>
                 <template #overlay>
                     <a-menu>

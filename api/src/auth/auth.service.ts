@@ -1,19 +1,20 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
-import { Result } from 'src/liveroom-common-oxr/types/result'
-import { User } from 'src/user/entities/user.entity'
+import { loadJWT } from '@/config/jwt.config'
+import { Result } from '@/core/types'
+import { User } from '@/user/entities/user.entity'
 
 @Injectable()
 export class AuthService {
-    constructor(private jwtService: JwtService) {}
+    constructor(
+        private jwtService: JwtService,
+        @Inject(loadJWT.KEY)
+        private readonly jwtConfiguration: ConfigType<typeof loadJWT>
+    ) {}
 
-    createToken(user: Partial<User>) {
-        return this.jwtService.sign(user)
-    }
-
-    login({ uid, uname }: User) {
-        const token = this.createToken({ uid, uname })
-        return new Result({ token, uid }, 'Login success')
+    async login({ uid, uname }: User) {
+        return new Result({ token: await this.jwtService.signAsync({ uid, uname }, this.jwtConfiguration), uid }, 'Login success')
     }
 
     // /**

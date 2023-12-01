@@ -1,5 +1,5 @@
-import { CommEntity } from 'src/common/entity/comm.entity'
-import { UserRole } from 'src/user-role/entities/user-role.entity'
+import { CommEntity } from '@/common/entity/comm.entity'
+import { UserRole } from '@/user-role/entities/user-role.entity'
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany } from 'typeorm'
 @Entity('user')
 export class User extends CommEntity {

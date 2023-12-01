@@ -6,17 +6,12 @@ const settingKey = {
     MENU_OPEN: '-MENU_OPEN-'
 }
 export const useSettingStore = defineStore('SETTING', () => {
-    const sideIsActive = ref(Cookie.get(settingKey.SIDE) || false)
-    const menuSelected = ref(Cookie.get(settingKey.MENU_SELECTED) || ['Home'])
+    const sideIsActive = ref(Cookie.get(settingKey.SIDE) || true)
     const menuOpen = ref(Cookie.get(settingKey.MENU_OPEN) || [])
 
     const setMenuOpen = (val: string) => {
         menuOpen.value = val
         Cookie.set(settingKey.MENU_OPEN, val)
-    }
-    const setMenuSelected = (val: string) => {
-        menuSelected.value = val
-        Cookie.set(settingKey.MENU_SELECTED, val)
     }
 
     const toggleSide = () => {
@@ -30,9 +25,7 @@ export const useSettingStore = defineStore('SETTING', () => {
     const clearSide = () => Cookie.remove(settingKey.SIDE)
     return {
         sideIsActive,
-        menuSelected,
         menuOpen,
-        setMenuSelected,
         setMenuOpen,
         toggleSide,
         closeSide,

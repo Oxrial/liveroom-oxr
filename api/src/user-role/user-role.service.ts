@@ -10,4 +10,7 @@ export class UserRoleService {
     async registerWithUser(createUserRoleDto: CreateUserRoleDto) {
         return await this.repo.save(createUserRoleDto)
     }
+    async findAll() {
+        return await this.repo.find()
+    }
 }

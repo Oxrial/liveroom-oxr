@@ -8,6 +8,8 @@ import { electronDevPlugin } from './plugins/vite.electron.dev'
 import { electronBuildPlugin } from './plugins/vite.electron.build'
 import { spawn } from 'child_process'
 import fs from 'node:fs'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 export const buildElectron = () => {
     require('esbuild').buildSync({
         entryPoints: ['./src/index.ts'],
@@ -75,6 +77,10 @@ export default defineConfig({
                 })
             ],
             dts: 'types/components.d.ts'
+        }),
+        createSvgIconsPlugin({
+            iconDirs: [resolve(process.cwd(), 'src/assets/icons/line-3d'), resolve(process.cwd(), 'src/assets/icons/line-blue')],
+            symbolId: 'icon-[dir]-[name]'
         }),
         // electronDevPlugin(buildElectron, buildProcess),
         electronBuildPlugin(buildElectron)
