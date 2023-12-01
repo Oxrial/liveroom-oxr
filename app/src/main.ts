@@ -6,10 +6,10 @@ import 'normalize.css'
 import '@/routes/permission'
 import 'virtual:svg-icons-register'
 import * as Icons from '@ant-design/icons-vue'
-
 import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persistedstate'
 import { getPublicKey } from '@/utils'
+
 const pinia = createPinia()
 pinia.use(piniaPersist)
 
