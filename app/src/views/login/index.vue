@@ -47,7 +47,7 @@ import type { Result } from '@/api'
 import _v from 'validator'
 import { usePost } from '@/hooks'
 import { Storage, useRsa } from '@/utils'
-import { getPublicKey } from '@/core/utils'
+import { getPublicKey } from '@/utils'
 import { cloneDeep } from 'lodash-es'
 
 const loginRef = ref<FormInstance>()

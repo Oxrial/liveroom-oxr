@@ -9,7 +9,7 @@ import * as Icons from '@ant-design/icons-vue'
 
 import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persistedstate'
-import { getPublicKey } from './core/utils'
+import { getPublicKey } from '@/utils'
 const pinia = createPinia()
 pinia.use(piniaPersist)
 

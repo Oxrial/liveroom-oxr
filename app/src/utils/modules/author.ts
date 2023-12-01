@@ -1,4 +1,8 @@
 import { Cookie } from '@/utils'
+import api, { checkOk } from '@/api'
+import { useGet } from '@/hooks'
+import { useUserStore } from '@/store'
+import { Result } from '@/core/types'
 
 const TokenKey = '-LIVEROOM-OXR-'
 
@@ -11,6 +15,13 @@ export function setToken(token: string) {
 }
 
 export function removeToken() {
-    console.log(TokenKey)
     return Cookie.remove(TokenKey)
+}
+
+export const getPublicKey = () => {
+    useGet(api.rsa).then(res => {
+        if (!checkOk(res)) return
+        const userStore = useUserStore()
+        userStore.setPublicKey((res as Result).data)
+    })
 }
