@@ -32,11 +32,15 @@ const testForm = ref<Array<FormType>>([
         name: 'gender',
         type: 'Select',
         stype: 'SelectOption',
+        stypeOptions: [
+            { value: '0', label: '女' },
+            { value: '1', label: '男' }
+        ],
         $attrs: {
-            options: [
-                { value: '0', label: '女' },
-                { value: '1', label: '男' }
-            ]
+            // options: [
+            //     { value: '0', label: '女' },
+            //     { value: '1', label: '男' }
+            // ]
         },
         rules: [
             {
