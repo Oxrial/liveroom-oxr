@@ -1,6 +1,7 @@
 <template>
     <AForm :model="model">
-        <Item :forms="form" :model="model" @update-slots="updateSlots">
+        {{ renderCheck() }}
+        <Item :form="form" :model="model" @update-slots="updateSlots">
             <template v-for="slot in slots" v-slot:[slot]="scope">
                 <slot :name="slot" v-bind="(scope as SlotScope)" />
             </template>
@@ -10,10 +11,15 @@
 
 <script setup lang="ts">
 import Item from './Item/index.vue'
+import { _renderCheck } from '@/utils'
 import type { FormProps, SlotScope } from './types'
+
 withDefaults(defineProps<FormProps>(), {})
+
 const slots = ref<Array<string>>([])
 const updateSlots = (slot: string) => !slots.value.includes(slot) && slots.value.push(slot)
+
+const renderCheck = _renderCheck('comm')
 </script>
 
 <style lang="scss" scoped></style>

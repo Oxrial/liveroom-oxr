@@ -1,26 +1,25 @@
 import { Rule } from 'ant-design-vue/es/form'
+
 export interface FormType {
-    rules?: Rule[]
     label: string
     name: string
-    type: string
-    stype?: string
-    stypeOptions?: Array<any>
-    slot?: string
-    forms?: FormType[]
     $fattrs?: Object
+    type: string
     $attrs?: Object
-    $sattrs?: Object
+    slot?: string
+    form?: FormType[]
+    children?: FormChildren
+    rules?: Rule[]
 }
-
+export type FormChildren = Pick<FormType, 'type' | '$attrs'> & { options: Array<any> }
+interface ModelProp {
+    [key: string]: any
+}
 export interface FormProps {
     form: FormType[]
-    model: Object
+    model: ModelProp
 }
 export interface SlotScope {
     item: FormType
-    model: Object
+    model: ModelProp
 }
-// export interface Slots {
-//     [key: string]: SlotScope
-// }

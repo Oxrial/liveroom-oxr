@@ -1,13 +1,15 @@
 <template>
     {{ modelData }}
-    <CommForm :form="testForm" :model="modelData">
-        <template #a="{ item, model }">
-            <div class="temp-a">
-                <Item :forms="item.forms!" :model="model" />
-            </div>
-            <br />
-        </template>
-    </CommForm>
+    <ACard>
+        <CommForm :form="testForm" :model="modelData">
+            <template #a="{ item, model }">
+                <div class="temp-a">
+                    <Item :form="item.form!" :model="model" />
+                </div>
+                <br />
+            </template>
+        </CommForm>
+    </ACard>
     <AButton @click="tes">1</AButton>
 </template>
 
@@ -31,16 +33,18 @@ const testForm = ref<Array<FormType>>([
         label: '性别',
         name: 'gender',
         type: 'Select',
-        stype: 'SelectOption',
-        stypeOptions: [
-            { value: '0', label: '女' },
-            { value: '1', label: '男' }
-        ],
         $attrs: {
             // options: [
             //     { value: '0', label: '女' },
             //     { value: '1', label: '男' }
             // ]
+        },
+        children: {
+            type: 'SelectOption',
+            options: [
+                { value: '0', label: '女' },
+                { value: '1', label: '男' }
+            ]
         },
         rules: [
             {
@@ -53,7 +57,7 @@ const testForm = ref<Array<FormType>>([
         name: 'a',
         type: 'Input',
         slot: 'a',
-        forms: [
+        form: [
             {
                 label: 'a姓名',
                 name: 'aname',
