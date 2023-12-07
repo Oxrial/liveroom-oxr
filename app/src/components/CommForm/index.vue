@@ -1,8 +1,8 @@
 <template>
     <AForm>
         <Item :forms="form" :modal="modal" ref="itemRef">
-            <template v-for="(obj, slot) in slots" v-slot:[slot]>
-                <slot :name="slot" v-bind="(obj as object)"></slot>
+            <template v-for="(_, slot) in slots" v-slot:[slot]="scope">
+                <slot :name="slot" v-bind="(scope as object)"></slot>
             </template>
         </Item>
     </AForm>

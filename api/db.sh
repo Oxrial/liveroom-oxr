@@ -44,9 +44,10 @@ IFS=$'\n'
 # echo press any key
 # read -n 1
 
-docker exec -it liveroom-oxr_devcontainer-api-1 pg_dump -U postgres -h 192.168.100.10 -p 5432 -f /var/lib/postgresql/data/db.sql postgres
-docker cp liveroom-oxr_devcontainer-api-1:/var/lib/postgresql/data/db.sql "E:\Dev\Project\Dev\Custom\liveroom-oxr\api\db\"
+#!export database sql,execute in windows
+#docker exec -it liveroom-oxr_devcontainer-api-1 pg_dump -U postgres -h 192.168.100.10 -p 5432 -f /var/lib/postgresql/data/db.sql postgres
+#docker cp liveroom-oxr_devcontainer-api-1:/var/lib/postgresql/data/db.sql E:\D\Project\Admin\liveroom-oxr\api\db\
 
 
-docker cp "$file" "liveroom-oxr_devcontainer-api-1::/var/lib/postgresql/tmp/"
-docker exec liveroom-oxr_devcontainer-api-1 sh -c "exec psql -U postgres -d postgres < $file"
+#docker cp E:\D\Project\Admin\liveroom-oxr\api\db\db.sql "liveroom-oxr_devcontainer-api-1::/var/lib/postgresql/tmp/"
+#docker exec liveroom-oxr_devcontainer-api-1 sh -c "exec psql -U postgres -d postgres < $file"
