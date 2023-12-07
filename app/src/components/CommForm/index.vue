@@ -13,9 +13,7 @@ import Item from './Item/index.vue'
 import type { FormProps, SlotScope } from './types'
 withDefaults(defineProps<FormProps>(), {})
 const slots = ref<Array<string>>([])
-// const slots = computed(() => itemRef.value && itemRef.value.slots)
-
-const updateSlots = (slot: string) => !(slot in slots.value) && slots.value.push(slot)
+const updateSlots = (slot: string) => !slots.value.includes(slot) && slots.value.push(slot)
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,7 +1,9 @@
 <template>
     <template v-for="item in forms">
         {{ item }}
-        <slot v-if="item.slot" :name="resolveSlot(item.slot)" :item="item" :modal="modal" />
+        <template v-if="item.slot">
+            <slot :name="resolveSlot(item.slot)" :item="item" :modal="modal" />
+        </template>
         <AFormItem v-else v-bind="{ ...resolveFormItem(item), ...item.$fattrs }">
             <component :is="Antdv[item.type as keyof typeof Antdv]" v-bind="item.$attrs" v-model:value="modal[item.name]">
                 <template v-if="item.stype">
@@ -25,6 +27,7 @@ defineProps<{ forms: FormType[]; modal: ModalProp }>()
 const emit = defineEmits(['update-slots'])
 const resolveFormItem = (item: FormType) => pick(item, 'label', 'name', 'rules')
 const resolveSlot = (slot: string) => {
+    console.log('>>>', slot)
     emit('update-slots', slot)
     return slot
 }
