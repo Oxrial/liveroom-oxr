@@ -12,8 +12,8 @@
 import Item from './Item/index.vue'
 import type { FormProps } from './types'
 withDefaults(defineProps<FormProps>(), {})
-const itemRef = ref<{ $slots: object }>()
-const slots = computed(() => itemRef.value && itemRef.value.$slots)
+const itemRef = ref<{ slots: object }>()
+const slots = computed(() => itemRef.value && itemRef.value.slots)
 </script>
 
 <style lang="scss" scoped></style>

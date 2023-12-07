@@ -2,7 +2,7 @@
     <template v-for="item in forms">
         {{ item }}
         <slot v-if="item.slot" :name="resolveSlot(item.slot, item, modal)" :item="item" :modal="modal" />
-        <AFormItem v-else v-bind="{ ...resolveF(item), ...item.$fattrs }">
+        <AFormItem v-else v-bind="{ ...resolveFormItem(item), ...item.$fattrs }">
             <component :is="Antdv[item.type as keyof typeof Antdv]" v-bind="item.$attrs" v-model:value="modal[item.name]">
                 <template v-if="item.stype">
                     <component v-for="option in item.stypeOptions" :is="item.stype" v-bind="item.$sattrs" :value="option.value">{{
@@ -21,13 +21,13 @@ interface ModalProp {
     [key: string]: any
 }
 defineProps<{ forms: FormType[]; modal: ModalProp }>()
-const resolveF = (item: FormType) => pick(item, 'label', 'name', 'rules')
-const $slots = reactive<{ [key: string]: object }>({})
+const resolveFormItem = (item: FormType) => pick(item, 'label', 'name', 'rules')
+const slots = reactive<{ [key: string]: object }>({})
 const resolveSlot = (slot: string, item: FormType, modal: ModalProp) => {
-    $slots[slot] = { item, modal }
+    slots[slot] = { item, modal }
     return slot
 }
-defineExpose({ $slots })
+defineExpose({ slots })
 </script>
 
 <style lang="scss" scoped></style>
