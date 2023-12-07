@@ -1,11 +1,11 @@
 <template>
-    <CommForm :form="testForm" :modal="modalData">
-        <template #a="{ item }">
+    {{ modelData }}
+    <CommForm :form="testForm" :model="modelData">
+        <template #a="{ item, model }">
             <div class="temp-a">
-                <Item :forms="item.forms!" :modal="modalData" />
+                <Item :forms="item.forms!" :model="model" />
             </div>
             <br />
-            {{ item.forms }}
         </template>
     </CommForm>
     <AButton @click="tes">1</AButton>
@@ -32,10 +32,12 @@ const testForm = ref<Array<FormType>>([
         name: 'gender',
         type: 'Select',
         stype: 'SelectOption',
-        stypeOptions: [
-            { value: '0', label: '女' },
-            { value: '1', label: '男' }
-        ],
+        $attrs: {
+            options: [
+                { value: '0', label: '女' },
+                { value: '1', label: '男' }
+            ]
+        },
         rules: [
             {
                 required: true
@@ -73,7 +75,7 @@ const testForm = ref<Array<FormType>>([
         ]
     }
 ])
-const modalData = reactive({
+const modelData = reactive({
     name: 'aa',
     gender: '1',
     a: 'b1',

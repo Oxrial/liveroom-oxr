@@ -15,11 +15,11 @@ export interface FormType {
 
 export interface FormProps {
     form: FormType[]
-    modal: Object
+    model: Object
 }
 export interface SlotScope {
     item: FormType
-    modal: Object
+    model: Object
 }
 // export interface Slots {
 //     [key: string]: SlotScope

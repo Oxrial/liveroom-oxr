@@ -1,6 +1,6 @@
 <template>
-    <AForm>
-        <Item :forms="form" :modal="modal" @update-slots="updateSlots">
+    <AForm :model="model">
+        <Item :forms="form" :model="model" @update-slots="updateSlots">
             <template v-for="slot in slots" v-slot:[slot]="scope">
                 <slot :name="slot" v-bind="(scope as SlotScope)" />
             </template>
