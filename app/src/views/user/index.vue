@@ -1,7 +1,7 @@
 <template>
     <CommForm :form="testForm" :modal="modalData">
         <template #a="{ item }">
-            {{ item }}
+            {{ item.forms }}
 
             <!-- <Item :forms="item.forms" :modal="modalData" /> -->
         </template>
