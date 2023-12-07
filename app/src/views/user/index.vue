@@ -3,10 +3,9 @@
     <ACard>
         <CommForm :form="testForm" :model="modelData">
             <template #a="{ item, model }">
-                <div class="temp-a">
-                    <Item :form="item.form!" :model="model" render-str="a-str-item" />
-                </div>
-                <br />
+                <!-- <ASpace wrap> -->
+                <Item :form="item.items!" :model="model" render-str="a-str-item" />
+                <!-- </ASpace> -->
             </template>
         </CommForm>
     </ACard>
@@ -14,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import type { FormType } from '@/components/CommForm/types'
+import type { FormItemProps } from '@/components/CommForm/types'
 import Item from '@/components/CommForm/Item/index.vue'
 
-const testForm = ref<Array<FormType>>([
+const testForm = ref<Array<FormItemProps>>([
     {
         label: '姓名',
         name: 'name',
@@ -57,7 +56,7 @@ const testForm = ref<Array<FormType>>([
         name: 'a',
         type: 'Input',
         slot: 'a',
-        form: [
+        items: [
             {
                 label: 'a姓名',
                 name: 'aname',
@@ -95,11 +94,4 @@ const tes = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.temp-a {
-    display: flex;
-    .a-form-item {
-        width: 49%;
-    }
-}
-</style>
+<style lang="scss" scoped></style>

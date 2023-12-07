@@ -23,14 +23,14 @@
 <script setup lang="ts">
 import * as Antdv from 'ant-design-vue/es/components'
 import { _renderCheck } from '@/utils'
-import type { FormProps, FormType } from '../types'
+import type { FormProps, FormItemProps } from '../types'
 import { pick } from 'lodash-es'
 
 const prop = defineProps<FormProps & { renderStr?: string }>()
 
 const emit = defineEmits(['update-slots'])
 
-const resolveFormItem = (item: FormType) => pick(item, 'label', 'name', 'rules')
+const resolveFormItem = (item: FormItemProps) => pick(item, 'label', 'name', 'rules')
 const resolveSlot = (slot: string) => {
     emit('update-slots', slot)
     return slot
