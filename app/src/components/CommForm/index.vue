@@ -19,7 +19,7 @@ withDefaults(defineProps<FormProps>(), {})
 const slots = ref<Array<string>>([])
 const updateSlots = (slot: string) => !slots.value.includes(slot) && slots.value.push(slot)
 
-const renderCheck = _renderCheck('comm')
+const renderCheck = _renderCheck('>>> comm')
 </script>
 
 <style lang="scss" scoped></style>

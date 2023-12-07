@@ -26,17 +26,16 @@ import { _renderCheck } from '@/utils'
 import type { FormProps, FormType } from '../types'
 import { pick } from 'lodash-es'
 
-defineProps<FormProps>()
+const prop = defineProps<FormProps & { renderStr?: string }>()
 
 const emit = defineEmits(['update-slots'])
 
 const resolveFormItem = (item: FormType) => pick(item, 'label', 'name', 'rules')
 const resolveSlot = (slot: string) => {
-    console.log('>>>', slot)
     emit('update-slots', slot)
     return slot
 }
-const renderCheck = _renderCheck('item')
+const renderCheck = _renderCheck(prop.renderStr || 'item')
 </script>
 
 <style lang="scss" scoped></style>

@@ -4,7 +4,7 @@
         <CommForm :form="testForm" :model="modelData">
             <template #a="{ item, model }">
                 <div class="temp-a">
-                    <Item :form="item.form!" :model="model" />
+                    <Item :form="item.form!" :model="model" render-str="a-str-item" />
                 </div>
                 <br />
             </template>
