@@ -1,5 +1,5 @@
 <template>
-    <a-menu
+    <AMenu
         :openKeys="menuState.openKeys"
         :selectedKeys="menuState.selectedKeys"
         :inline-collapsed="!useSetting.sideIsActive"
@@ -7,14 +7,14 @@
         :theme="(settings.theme as MenuTheme)"
         @click="menuClick"
     >
-        <SubMenu v-for="routeItem in (routes as Route[])" :item="routeItem"></SubMenu>
-    </a-menu>
+        <MenuSub v-for="routeItem in (routes as Route[])" :item="routeItem"></MenuSub>
+    </AMenu>
 </template>
 
 <script setup lang="ts">
 import settings from '@/layout/settings'
 import { useSettingStore } from '@/store'
-import SubMenu from './Submenu.vue'
+import MenuSub from './MenuSub.vue'
 import type { Route } from '@/layout/types'
 import { constantRoutes } from '@/routes'
 import { MenuInfo, MenuTheme } from 'ant-design-vue/es/menu/src/interface'

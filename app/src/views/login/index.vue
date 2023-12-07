@@ -1,8 +1,8 @@
 <template>
-    <a-row class="lro-login">
-        <a-col :span="12" />
-        <a-col :span="12" class="lro-login__content">
-            <a-form
+    <ARow class="lro-login">
+        <ACol :span="12" />
+        <ACol :span="12" class="lro-login__content">
+            <AForm
                 :model="loginData"
                 ref="loginRef"
                 name="login"
@@ -15,26 +15,26 @@
             >
                 <div class="title">LIVEROOM</div>
                 <template v-for="{ label, prop, tag, rules, $attrs = {}, $listeners = {} } in loginForm">
-                    <a-form-item :label="label" :name="prop" :rules="rules">
+                    <AFormItem :label="label" :name="prop" :rules="rules">
                         <component v-model:value="(loginData[prop as keyof LoginUser] as any)" :is="tag" v-bind="$attrs" v-on="$listeners" />
-                    </a-form-item>
+                    </AFormItem>
                 </template>
                 <div class="operation-conent">
-                    <a-checkbox :checked="userStore.remember" @update:checked="(v:boolean) => userStore.setRemember(v)"> Remember me </a-checkbox>
-                    <a-button type="link" @click="forgetPWD">忘记密码</a-button>
+                    <ACheckbox :checked="userStore.remember" @update:checked="(v:boolean) => userStore.setRemember(v)"> Remember me </ACheckbox>
+                    <AButton type="link" @click="forgetPWD">忘记密码</AButton>
                 </div>
                 <div style="height: 3em" />
-                <a-form-item :wrapper-col="{ offset: 0, span: 24 }" style="text-align: center">
-                    <a-button size="large" class="login-btn" type="primary" html-type="submit">登&emsp;录</a-button>
+                <AFormItem :wrapper-col="{ offset: 0, span: 24 }" style="text-align: center">
+                    <AButton size="large" class="login-btn" type="primary" html-type="submit">登&emsp;录</AButton>
                     <br />
-                    <a-tooltip placement="right">
+                    <ATooltip placement="right">
                         <template #title>请输入手机号注册</template>
-                        <a-button type="link" :disabled="!loginData.mobile" @click="register">注册</a-button>
-                    </a-tooltip>
-                </a-form-item>
-            </a-form>
-        </a-col>
-    </a-row>
+                        <AButton type="link" :disabled="!loginData.mobile" @click="register">注册</AButton>
+                    </ATooltip>
+                </AFormItem>
+            </AForm>
+        </ACol>
+    </ARow>
 </template>
 
 <script setup lang="ts">

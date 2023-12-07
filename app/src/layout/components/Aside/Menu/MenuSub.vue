@@ -1,28 +1,28 @@
 <template>
     <template v-if="hasOneChild(props.item) && (!onlyOneChild.children || onlyOneChild.nonChildren)">
-        <a-menu-item :key="resolvePath(onlyOneChild.path)">
+        <AMenuItem :key="resolvePath(onlyOneChild.path)">
             <span v-if="item.meta?.svg" role="img" class="anticon">
                 <SvgIcon :name="item.meta.svg" :color="item.meta.color" />
             </span>
             <component v-else-if="item.meta?.icon" :is="item.meta.icon" />
-            {{ onlyOneChild.meta.title }}
-        </a-menu-item>
+            <span> {{ onlyOneChild.meta.title }}</span>
+        </AMenuItem>
     </template>
-    <a-sub-menu v-else :key="resolvePath(item.path)">
+    <ASubMenu v-else :key="resolvePath(item.path)">
         <template #title>
             <SvgIcon v-if="item.meta?.svg" :name="item.meta.svg" :color="item.meta.color" />
             <component v-else-if="item.meta?.icon" :is="item.meta.icon" />
             <span v-if="item.meta">{{ item.meta.title }}</span>
         </template>
-        <SubMenu v-for="child in item.children" :key="child.path" :item="child" :parent-path="resolvePath(item.path)" />
-    </a-sub-menu>
+        <MenuSub v-for="child in item.children" :key="child.path" :item="child" :parent-path="resolvePath(item.path)" />
+    </ASubMenu>
 </template>
 <script setup lang="ts">
 import type { Route } from '@/layout/types'
 import { PropType } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 defineOptions({
-    name: 'SubMenu'
+    name: 'MenuSub'
 })
 const props = defineProps({
     item: {

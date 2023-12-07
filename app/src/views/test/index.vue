@@ -1,4 +1,8 @@
-<template>TEST</template>
+<template>
+    <AInput />
+    <ASelect />
+    <ASelectOption />
+</template>
 
 <script setup lang="ts"></script>
 

@@ -4,18 +4,17 @@
             <Hamburger :is-active="settingStore.sideIsActive" @toggle="settingStore.toggleSide" />
         </div>
         <div class="lro-header__right">
-            <a-dropdown>
+            <ADropdown>
                 <span>
-                    <!-- <a-avatar size="small" :src="userStore.avatar" /> -->
-                    <a-avatar :size="40">{{ userStore.uname?.substring(0, 2).toLocaleUpperCase() }}</a-avatar>
+                    <AAvatar :size="40">{{ userStore.uname?.substring(0, 2).toLocaleUpperCase() }}</AAvatar>
                     <span> {{ userStore.uname }}</span>
                 </span>
                 <template #overlay>
-                    <a-menu>
-                        <a-menu-item key="1" @click="logout">退出登录</a-menu-item>
-                    </a-menu>
+                    <AMenu>
+                        <AMenuItem key="1" @click="logout">退出登录</AMenuItem>
+                    </AMenu>
                 </template>
-            </a-dropdown>
+            </ADropdown>
         </div>
     </div>
 </template>
