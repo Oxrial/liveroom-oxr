@@ -1,6 +1,6 @@
 <template>
     <template v-for="item in forms">
-        {{ item }}
+        <!-- {{ item }} -->
         <template v-if="item.slot">
             <slot :name="resolveSlot(item.slot)" :item="item" :modal="modal" />
         </template>
