@@ -1,6 +1,10 @@
 <template>
     <CommForm :form="testForm" :modal="modalData">
-        <template #a="{ item }"> 1s <Item :forms="item.forms" :modal="modalData" /> </template>
+        <template #a="{ item }">
+            {{ item }}
+
+            <!-- <Item :forms="item.forms" :modal="modalData" /> -->
+        </template>
     </CommForm>
     <AButton @click="tes">1</AButton>
 </template>

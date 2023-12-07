@@ -17,3 +17,10 @@ export interface FormProps {
     form: FormType[]
     modal: Object
 }
+// export interface SlotScope {
+//     item: FormType
+//     modal: Object
+// }
+// export interface Slots {
+//     [key: string]: SlotScope
+// }

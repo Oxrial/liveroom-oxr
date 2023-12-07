@@ -1,7 +1,7 @@
 <template>
     <template v-for="item in forms">
         {{ item }}
-        <slot v-if="item.slot" :name="resolveSlot(item.slot, item, modal)" :item="item" :modal="modal" />
+        <slot v-if="item.slot" :name="resolveSlot(item.slot)" :item="item" :modal="modal" />
         <AFormItem v-else v-bind="{ ...resolveFormItem(item), ...item.$fattrs }">
             <component :is="Antdv[item.type as keyof typeof Antdv]" v-bind="item.$attrs" v-model:value="modal[item.name]">
                 <template v-if="item.stype">
@@ -20,14 +20,14 @@ import { pick } from 'lodash-es'
 interface ModalProp {
     [key: string]: any
 }
+
 defineProps<{ forms: FormType[]; modal: ModalProp }>()
+const emit = defineEmits(['update-slots'])
 const resolveFormItem = (item: FormType) => pick(item, 'label', 'name', 'rules')
-const slots = reactive<{ [key: string]: object }>({})
-const resolveSlot = (slot: string, item: FormType, modal: ModalProp) => {
-    slots[slot] = { item, modal }
+const resolveSlot = (slot: string) => {
+    emit('update-slots', slot)
     return slot
 }
-defineExpose({ slots })
 </script>
 
 <style lang="scss" scoped></style>
